@@ -21,6 +21,15 @@ namespace ELKLogging.Controllers
 		[HttpGet(Name = "GetWeatherForecast")]
 		public IEnumerable<WeatherForecast> Get()
 		{
+			_logger.LogInformation("WeatherForecastController Get - this is a nice message to test the logs", DateTime.UtcNow);
+			try
+			{
+				throw new Exception("Testing exceptions - ML");
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "An unknown error occurred on the Index action of the HomeController");
+			}
 			return Enumerable.Range(1, 5).Select(index => new WeatherForecast
 			{
 				Date = DateTime.Now.AddDays(index),
